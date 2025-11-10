@@ -83,8 +83,8 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
                             ┌───────────┴───────────┐
                             │                       │
                   ┌─────────▼─────────┐     ┌──────▼──────┐
-                  │      DMZ Zone      │     │ VPN Gateway │
-                  │ (Web, Reverse Proxy│     │  (MFA Access)│
+                  │      DMZ Zone      │    │ VPN Gateway │
+                  │ (Web, Reverse Proxy│    │ (MFA Access)│
                   └─────────┬─────────┘     └──────┬──────┘
                             │                       │
                             │                       │
@@ -93,8 +93,8 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
         ┌───────────┬──────────────┬───────────────┐
         │           │              │               │
 ┌───────▼───────┐┌──▼────────┐┌───▼─────────┐┌────▼─────────┐
-│ User VLAN     ││ Server VLAN││ Database VLAN││ Mgmt VLAN   │
-│ (Workstations)││ (App, API) ││ (DB servers) ││ (Jump Hosts)│
+│ User VLAN     ││ Server VLAN││ Database VLAN││ Mgmt VLAN  │
+│ (Workstations)││ (App, API) ││ (DB servers) ││(Jump Hosts)│
 └───────┬───────┘└──┬────────┘└───┬─────────┘└────┬─────────┘
         │            │              │               │
         │            │              │               │
