@@ -30,3 +30,40 @@ Flat network 指的是整個內部網絡中沒有明確的區域劃分（Segment
 沒有分區就無法設定特定區域流量監控。\
 IDS / NDR 難以分辨「正常內部流量」與「異常橫向流量」。\
 攻擊活動（例如從一台電腦到另一台大量登入嘗試）容易被忽略。
+
+🧱 二、網絡分段的核心目的與原則
+
+目的：\
+限制攻擊範圍與影響面。\
+控制不同信任區之間的流量與通訊方向。\
+提升事件偵測與應變效率（縮小可疑活動範圍）。
+
+三大原則：\
+1️⃣ 最小信任區原則 (Least Trust Zone)\
+→ 每個區域僅允許必要流量通行\
+2️⃣ 明確邊界原則 (Explicit Boundary)\
+→ 使用 VLAN、防火牆、SDN 或微分段工具建立明確邊界\
+3️⃣ 可監控原則 (Visibility & Monitoring)\
+→ 對跨區流量進行持續監控與日誌審計
+
+🧩 三、網絡分段的實施層級
+
+下面我分三個層級詳細說明：
+
+🔹 1. 網絡層級分段（Network-Level Segmentation）
+
+技術手段：\
+使用 VLAN / Subnet 將業務功能或信任層分離，例如：\
+User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ\
+於 L3 Switch 或防火牆設定 ACL / Zone Policy：\
+僅允許明確流量（例如 Web → App → DB），拒絕預設所有其他流量\
+關鍵管理操作僅允許從專用 Jump Server 經多因素驗證（MFA）
+
+🔹 2. 微分段（Microsegmentation）
+
+進階技術，用於防止內部橫向擴散
+
+實現方式：\
+使用 SDN / Overlay Network 工具（如 VMware NSX、Cisco ACI、Illumio、Guardicore）\
+在 VM / Workload 層面設定安全策略（每台主機只允許指定流量）\
+以標籤（Tag-based Policy）管理，減少依賴IP
