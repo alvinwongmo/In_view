@@ -1,0 +1,71 @@
+🧩 基本概念：什麼是 Reverse Proxy（反向代理）
+
+簡單定義：
+
+Reverse Proxy 是位於外部用戶與內部伺服器之間的中介伺服器，
+它代表後端伺服器（Web、App、API）接收來自外部客戶端的請求，
+然後將結果回傳給客戶端，就像客戶端直接連到內部伺服器一樣。
+
+換句話說：
+
+Forward Proxy（正向代理） → 用戶端 → Proxy → 外部網站
+Reverse Proxy（反向代理） → 外部用戶 → Proxy → 內部伺服器
+
+口語化說法：
+
+Forward Proxy 保護的是「用戶端的隱私」
+Reverse Proxy 保護的是「伺服器的安全」
+
+🧱 Reverse Proxy 的位置與流向（示意）
+Internet User
+      │
+      ▼
+[ Reverse Proxy / WAF ]  ← 位於 DMZ 區
+      │
+      ▼
+[ Internal Web Server ]
+
+
+當外部用戶想訪問你的網站（例如 https://www.bank.com）時：
+
+1️⃣ 請求先到達 Reverse Proxy（例如 Nginx、HAProxy、F5、Cloudflare、Apache httpd mod_proxy）
+2️⃣ Proxy 代表用戶端向內部的 Web/App Server 發送請求
+3️⃣ 伺服器回應結果交給 Proxy
+4️⃣ Proxy 將結果返回給外部用戶
+
+外部用戶永遠看不到內部伺服器的真實 IP 或結構
+
+
+🧱 Reverse Proxy 的主要安全作用
+
+1️⃣ 隱藏內部架構（Anonymization）
+外部只看到 Proxy 的 IP（例如公網 IP），不會直接接觸到內部 Web/App Server。
+避免攻擊者掃描或直接攻擊內部伺服器
+
+2️⃣ 流量控制與過濾
+可以集中啟用：
+Web Application Firewall (WAF)
+Anti-DDoS
+Rate Limiting / Throttling
+對惡意請求可提前阻擋，不讓其進入內網
+
+3️⃣ SSL/TLS 終止（SSL Offloading）
+Reverse Proxy 負責加解密 HTTPS 流量，減輕內部伺服器負擔
+集中管理憑證、統一安全策略
+
+4️⃣ 負載平衡（Load Balancing）
+反向代理可根據負載分配請求至多台伺服器（round robin、least connection等）
+提升可用性與冗餘性
+
+5️⃣ 快取與性能優化（Caching & Compression）
+快取靜態資源（圖片、JS、CSS），減少後端負載
+改善網站回應速度，同時降低 DoS 攻擊面
+
+6️⃣ 審計與安全監控
+集中記錄所有 HTTP 請求、來源 IP、User-Agent、行為模式
+可輸出至 SIEM（如 Splunk / QRadar）進行安全分析
+
+總結:
+「反向代理位於外部使用者與內部伺服器之間，它代表伺服器接收請求
+可隱藏內部 IP、集中 SSL 終止、提供負載平衡與 WAF 功能
+在 DMZ 部署能有效隔離內外網，減少攻擊者滲透與橫向移動的風險。」
