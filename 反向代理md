@@ -2,26 +2,22 @@
 
 簡單定義：
 
-Reverse Proxy 是位於外部用戶與內部伺服器之間的中介伺服器，
-它代表後端伺服器（Web、App、API）接收來自外部客戶端的請求，
-然後將結果回傳給客戶端，就像客戶端直接連到內部伺服器一樣。
+Reverse Proxy 是位於外部用戶與內部伺服器之間的中介伺服器
+它代表後端伺服器（Web、App、API）接收來自外部客戶端的請求
+然後將結果回傳給客戶端，就像客戶端直接連到內部伺服器一樣
 
 換句話說：
-
 Forward Proxy（正向代理） → 用戶端 → Proxy → 外部網站
 Reverse Proxy（反向代理） → 外部用戶 → Proxy → 內部伺服器
 
 口語化說法：
-
 Forward Proxy 保護的是「用戶端的隱私」
 Reverse Proxy 保護的是「伺服器的安全」
 
 🧱 Reverse Proxy 的位置與流向（示意）
 Internet User
-      │
       ▼
 [ Reverse Proxy / WAF ]  ← 位於 DMZ 區
-      │
       ▼
 [ Internal Web Server ]
 
@@ -39,7 +35,7 @@ Internet User
 🧱 Reverse Proxy 的主要安全作用
 
 1️⃣ 隱藏內部架構（Anonymization）
-外部只看到 Proxy 的 IP（例如公網 IP），不會直接接觸到內部 Web/App Server。
+外部只看到 Proxy 的 IP（例如公網 IP），不會直接接觸到內部 Web/App Server
 避免攻擊者掃描或直接攻擊內部伺服器
 
 2️⃣ 流量控制與過濾
@@ -66,6 +62,6 @@ Reverse Proxy 負責加解密 HTTPS 流量，減輕內部伺服器負擔
 可輸出至 SIEM（如 Splunk / QRadar）進行安全分析
 
 總結:
-「反向代理位於外部使用者與內部伺服器之間，它代表伺服器接收請求
+反向代理位於外部使用者與內部伺服器之間，它代表伺服器接收請求
 可隱藏內部 IP、集中 SSL 終止、提供負載平衡與 WAF 功能
-在 DMZ 部署能有效隔離內外網，減少攻擊者滲透與橫向移動的風險。」
+在 DMZ 部署能有效隔離內外網，減少攻擊者滲透與橫向移動的風險
