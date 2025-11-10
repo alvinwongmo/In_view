@@ -60,7 +60,6 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
 僅允許明確流量（例如 Web → App → DB），拒絕預設所有其他流量
 關鍵管理操作僅允許從專用 Jump Server 經多因素驗證（MFA）
 
-\
 🔹 2. 微分段（Microsegmentation）
 進階技術，用於防止內部橫向擴散
 實現方式：
@@ -75,7 +74,6 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
 最後結合SIEM監控與流量分析，實現持續偵測與防禦」
 
 🧱 網絡分段示意拓撲圖
-
                          ┌────────────────────────────┐
                          │          Internet          │
                          └──────────────┬─────────────┘
@@ -100,7 +98,7 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
 └───────┬───────┘└──┬────────┘└───┬─────────┘└────┬─────────┘
         │            │              │               │
         │            │              │               │
-        │            │              │      [ Access via SSH/RDP
+        │            │              │         [ Access via SSH/RDP
         │            │              │         from Jump Host Only ]
         │            │              │
         └────────────┴──────────────┴───────────────────────┘
@@ -114,6 +112,8 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
              └─────────────────────────────┘
 
 
+
+
 🔹 微分段（Microsegmentation）
 
 從「每一台主機 / VM / Container」的角度定義通訊規則
@@ -123,8 +123,8 @@ User VLAN、Server VLAN、Database VLAN、Management VLAN、DMZ
 Allow App01 (role=frontend) → DB01 (role=database) on TCP 3306
 Deny  App01 → App02 (same VLAN)
 
-即使兩台主機在同一 VLAN，也可以禁止互通。
-可以隨著工作負載搬移、擴展自動更新規則。
+即使兩台主機在同一 VLAN，也可以禁止互通
+可以隨著工作負載搬移、擴展自動更新規則
 
 
 🧠 微分段（Microsegmentation）延伸設計
@@ -136,6 +136,9 @@ Deny  App01 → App02 (same VLAN)
  ├─ App01  ↔  DB01   (Allowed: TCP 1433)
  ├─ App02  ↔  DB02   (Allowed: TCP 1521)
 
-這樣即使攻擊者入侵一台伺服器，也無法直接掃描或連線同 VLAN 內其他主機，
-這是防止橫向移動最關鍵的最後一道牆。
+從「每一台主機 / VM / Container」的角度定義通訊規則
+以 應用角色或標籤（App Role Tag） 決定誰能與誰通訊
+
+這樣即使攻擊者入侵一台伺服器，也無法直接掃描或連線同 VLAN 內其他主機
+即使兩台主機在同一 VLAN，也可以禁止互通。這是防止橫向移動最關鍵的最後一道牆
  
